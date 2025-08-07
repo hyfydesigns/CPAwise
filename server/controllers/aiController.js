@@ -1,3 +1,16 @@
+// controllers/aiController.js
+const { generateOpenAICompletion } = require('../services/openaiService');
+
+exports.generateReport = async (req, res) => {
+  try {
+    const prompt = `Generate a CPA report from this input:\n${req.body.notes}`;
+    const report = await generateOpenAICompletion(prompt);
+    res.json({ report });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 const { chatCompletion } = require('../services/openaiService');
 
 exports.generateReport = async (req, res) => {
